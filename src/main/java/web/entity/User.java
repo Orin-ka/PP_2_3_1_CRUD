@@ -1,4 +1,4 @@
-package web.model;
+package web.entity;
 
 import javax.persistence.*;
 
@@ -16,8 +16,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "profession")
-    private String profession;
+    @Column(name = "job")
+    private String job;
 
 
 
@@ -26,7 +26,7 @@ public class User {
     public User(String firstName, String lastName, String profession) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.profession = profession;
+        this.job = job;
     }
 
 
@@ -54,12 +54,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return profession;
+    public String getJob() {
+        return job;
     }
 
-    public void setEmail(String profession) {
-        this.profession = profession;
+    public void setJob(String profession) {
+        this.job = job;
     }
 
 }
