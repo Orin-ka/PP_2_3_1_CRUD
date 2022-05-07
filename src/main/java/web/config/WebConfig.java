@@ -29,72 +29,23 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:db.properties")
-@EnableTransactionManagement
-@EnableJpaRepositories
 @EnableWebMvc
 @ComponentScan("web")
 public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
-
-    @Autowired
     public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
-    }
-
-    @Autowired
-    private Environment env;
-
-    @Bean
-    public DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
-        return dataSource;
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(getDataSource());
-        em.setPackagesToScan(env.getRequiredProperty("db.entity.package"));
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(getHibernateProperties());
-
-        return em;
-    }
-
-    @Bean
-    public PlatformTransactionManager platformTransactionManager() {
-        JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(entityManagerFactory().getObject());
-
-        return manager;
-    }
-
-    private Properties getHibernateProperties(){
-        try {
-            Properties properties = new Properties();
-            InputStream is = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
-            properties.load(is);
-
-            return properties;
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath", e);
-        }
-
     }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/");
+        templateResolver.setPrefix("/WEB-INF/pages/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -106,15 +57,12 @@ public class WebConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
-
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setCharacterEncoding("UTF-8");
+        resolver.setContentType("text/html; charset=UTF-8");
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
-
-
-
-
 }

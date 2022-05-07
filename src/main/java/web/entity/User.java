@@ -10,20 +10,20 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 30)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
-    @Column(name = "job")
+    @Column(name = "job", length = 30)
     private String job;
 
 
 
     public User() {}
 
-    public User(String firstName, String lastName, String profession) {
+    public User(String firstName, String lastName, String job) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.job = job;
