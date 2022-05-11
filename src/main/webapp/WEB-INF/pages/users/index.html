@@ -6,18 +6,22 @@
     <title>Hello</title>
 </head>
 <body>
-<p>Hello!</p>
+
 
 
 <div>
-    <h1>List of users</h1>
+    <h1>Список пользователей</h1>
     <table width="400" cellpadding="10">
-        <tr><th>Id</th><th>First name</th><th>Last name</th><th>Job</th></tr>
+        <p > <a href="/users/new"> Создать нового пользователя </a> </p>
+        <tr><th>Id</th><th>First name</th><th>Last name</th><th>Job</th><th></th><th></th></tr>
         <th:block th:each="user : ${allUsers}">
             <tr><td><p th:text="${user.getId()}" /></td>
-                <td><p th:text="${user.getFirstName()}" /></td>
+                <td><a th:href="@{/users/{id}(id=${user.getId()})}"><p th:text="${user.getFirstName()}" /</a></td>
                 <td><p th:text="${user.getLastName()}" /></td>
-                <td><p th:text="${user.getJob()}" /></td></tr>
+                <td><p th:text="${user.getJob()}" /></td>
+                <td><a th:href="@{/users/{id}/edit(id=${user.getId()})}"> Изменить </a></td>
+                <td> <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить"/> </form> </td></tr>
         </th:block>
     </table>
 </div>

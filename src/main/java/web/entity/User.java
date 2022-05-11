@@ -2,7 +2,7 @@ package web.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "users")
 public class User {
     @Id
@@ -29,6 +29,12 @@ public class User {
         this.job = job;
     }
 
+    public User(Long id, String firstName, String lastName, String job) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.job = job;
+    }
 
     public Long getId() {
         return id;
@@ -58,7 +64,7 @@ public class User {
         return job;
     }
 
-    public void setJob(String profession) {
+    public void setJob(String job) {
         this.job = job;
     }
 
