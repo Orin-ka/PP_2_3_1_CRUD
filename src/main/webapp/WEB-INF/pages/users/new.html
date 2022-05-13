@@ -3,10 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create new user</title>
+    <title>Создать</title>
 </head>
 <body>
-<p> На этой странице будем создавать юзера </p>
+<h1> Создать нового пользователя: </h1>
 
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
 
@@ -22,7 +22,7 @@
     <input type="text" th:field="*{job}" id="job"/>
     <br/>
 
-    <input type="submit" value="Добавить"/>
+    <input type="submit" value="Создать пользователя"/>
 
 </body>
 </html>

@@ -5,17 +5,18 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import web.entity.User;
+import web.service.UserService;
 import web.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     //Спринг внедряет через конструктор зависимость от userService
     //@Autowired необязателен
-    public UsersController(UserServiceImpl userService) {
+    public UsersController(UserService userService) {
         this.userService = userService;
     }
 
